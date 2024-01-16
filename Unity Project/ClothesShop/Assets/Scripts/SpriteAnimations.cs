@@ -11,7 +11,7 @@ public class SpriteAnimations : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Animator animator;
     
-    int sortOffset;
+    private int sortOffset;
 
     void Start(){
         sortOffset = spriteRenderer.sortingOrder;

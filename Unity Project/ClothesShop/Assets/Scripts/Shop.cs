@@ -18,12 +18,18 @@ public class Shop : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
+        if (col.gameObject != PlayerController.instance.gameObject)
+            return;
+
         playerClose = true;
         UI.instance.TurnPressEToInteract(true);
     }
 
     void OnTriggerExit2D(Collider2D col)
     {
+        if (col.gameObject != PlayerController.instance.gameObject)
+            return;
+
         playerClose = false;
         UI.instance.TurnPressEToInteract(false);
     }

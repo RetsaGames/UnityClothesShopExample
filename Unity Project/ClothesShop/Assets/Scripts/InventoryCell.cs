@@ -4,29 +4,35 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventoryCell : MonoBehaviour,IDeselectHandler,IPointerEnterHandler,IPointerExitHandler
+/// <summary>
+/// A cell in the inventory UI.
+/// </summary>
+public class InventoryCell : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler
 {
     [Header("Properties")]
-    [SerializeField] private Item item;
+    [SerializeField] protected Item item;
 
     [Header("References")]
-    [SerializeField] private Image icon;
-    [SerializeField] private Button button;
+    [SerializeField] protected Image icon;
 
     void Start()
     {
+        initiate();
+    }
+
+    protected virtual void initiate(){
         if (item){
             setItem(item);
         }
     }
 
-    public void setItem(Item newItem){
+    public virtual void setItem(Item newItem){
         item = newItem;
         icon.gameObject.SetActive(true);
         icon.sprite = item.icon;
     }
 
-    public void removeItem(){
+    public virtual void removeItem(){
         item = null;
         icon.gameObject.SetActive(false);
     }
@@ -39,11 +45,6 @@ public class InventoryCell : MonoBehaviour,IDeselectHandler,IPointerEnterHandler
         }
     }
 
-    public void OnDeselect(BaseEventData eventData)
-    {
-        
-    }
-
     public void OnPointerEnter(PointerEventData eventData)
     {
         Cursor.instance.SetMouseOverCell(this);
@@ -52,5 +53,15 @@ public class InventoryCell : MonoBehaviour,IDeselectHandler,IPointerEnterHandler
     public void OnPointerExit(PointerEventData eventData)
     {
         Cursor.instance.RemoveMouseOverCell(this);
+    }
+
+
+    public virtual bool CanReceiveItem(Item newItem){
+        if (item){
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 }

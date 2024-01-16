@@ -13,6 +13,7 @@ public class Actor : MonoBehaviour
     [Header("References")]
     [SerializeField] SpriteAnimations body;
     [SerializeField] SpriteAnimations clothes;
+    [SerializeField] SpriteAnimations hat;
 
     void Start(){
         PlayAnimation(initialAnimation);
@@ -20,11 +21,46 @@ public class Actor : MonoBehaviour
 
     public void PlayAnimation(AnimationType animationType){
         body.PlayAnimation(animationType);
-        clothes.PlayAnimation(animationType);
+        if (clothes)
+            clothes.PlayAnimation(animationType);
+        if (hat)
+            hat.PlayAnimation(animationType);
     }
 
+    /// <summary>
+    /// Updates the sorting order of the sprites based on the Y position. Objects that are in front of others should be drawn first.
+    /// </summary>
     public void UpdateDepth(){
         body.UpdateDepth();
-        clothes.UpdateDepth();
+        if (clothes)
+            clothes.UpdateDepth();
+        if (hat)
+            hat.UpdateDepth();
+    }
+
+    public void SetClothes(SpriteAnimations newClothes){
+        clothes = newClothes;
+    }
+
+    public SpriteAnimations GetClothes(){
+        return clothes;
+    }
+
+    public void RemoveClothes(){
+        if (clothes)
+            Destroy(clothes.gameObject);
+    }
+
+    public void SetHat(SpriteAnimations newHat){
+        hat = newHat;
+    }
+
+    public SpriteAnimations GetHat(){
+        return hat;
+    }
+
+    public void RemoveHat(){
+        if (hat)
+            Destroy(hat.gameObject);
     }
 }

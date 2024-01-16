@@ -41,8 +41,7 @@ public class Cursor : MonoBehaviour
         }
 
         if (Input.GetButtonUp("Grab") && item){
-            if (mouseOverCell){
-                Debug.Log("Item Move");
+            if (mouseOverCell && mouseOverCell.CanReceiveItem(item)){
                 mouseOverCell.setItem(item);
             }
             else{

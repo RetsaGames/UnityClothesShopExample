@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Moves an Actor based on the player's input.
+/// Moves an Actor
 /// </summary>
 public class MoveActor : MonoBehaviour
 {
@@ -18,11 +18,8 @@ public class MoveActor : MonoBehaviour
     private enum Direction{down,up,left,right};
     private Direction direction = Direction.down;
 
-    void Update()
+    public void setInput(float horizontal,float vertical)
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-
         movementInput = new Vector2(horizontal,vertical);
         movementInput.Normalize();
 

@@ -55,7 +55,6 @@ public class InventoryCell : MonoBehaviour,IPointerEnterHandler,IPointerExitHand
         Cursor.instance.RemoveMouseOverCell(this);
     }
 
-
     public virtual bool CanReceiveItem(Item newItem){
         if (item){
             return false;
@@ -63,5 +62,9 @@ public class InventoryCell : MonoBehaviour,IPointerEnterHandler,IPointerExitHand
         else{
             return true;
         }
+    }
+
+    public Item getItem(){
+        return item;
     }
 }

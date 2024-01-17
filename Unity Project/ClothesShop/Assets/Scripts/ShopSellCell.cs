@@ -23,23 +23,4 @@ public class ShopSellCell : InventoryCell
         
         priceContainer.SetActive(false);
     }
-
-    public override bool CanReceiveItem(Item newItem){
-        int playerCoins = PlayerController.instance.GetComponent<Actor>().coins;
-
-        if (item){
-            return false;
-        }
-        else if (playerCoins - newItem.price < 0){
-            return false;
-        }
-        else{
-            return true;
-        }
-    }
-
-    public override void onItemReceived(){
-        PlayerController.instance.GetComponent<Actor>().coins -= item.price;
-        UI.instance.updatePriceText();
-    }
 }

@@ -24,8 +24,24 @@ public class ShopBuyCell : InventoryCell
         priceContainer.SetActive(false);
     }
 
+    protected override bool CanGrabItem(){
+        int playerCoins = PlayerController.instance.GetComponent<Actor>().coins;
+
+        if (playerCoins - item.price < 0){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
     public override void onItemReceived(){
         PlayerController.instance.GetComponent<Actor>().coins += item.price;
+        UI.instance.updatePriceText();
+    }
+
+    protected override void onItemGrabbed(){
+        PlayerController.instance.GetComponent<Actor>().coins -= item.price;
         UI.instance.updatePriceText();
     }
 }

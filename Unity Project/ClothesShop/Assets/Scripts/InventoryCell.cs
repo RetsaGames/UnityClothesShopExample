@@ -39,7 +39,8 @@ public class InventoryCell : MonoBehaviour,IPointerEnterHandler,IPointerExitHand
 
     public void GrabItem()
     {
-        if (item){
+        if (item && CanGrabItem()){
+            onItemGrabbed();
             Cursor.instance.pickItem(item,this);
             removeItem();
         }
@@ -53,6 +54,10 @@ public class InventoryCell : MonoBehaviour,IPointerEnterHandler,IPointerExitHand
     public void OnPointerExit(PointerEventData eventData)
     {
         Cursor.instance.RemoveMouseOverCell(this);
+    }
+
+    protected virtual bool CanGrabItem(){
+        return true;
     }
 
     public virtual bool CanReceiveItem(Item newItem){
@@ -70,5 +75,9 @@ public class InventoryCell : MonoBehaviour,IPointerEnterHandler,IPointerExitHand
 
     public virtual void onItemReceived(){
         
+    }
+
+    protected virtual void onItemGrabbed(){
+
     }
 }

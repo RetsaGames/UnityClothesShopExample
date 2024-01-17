@@ -1,14 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
+/// <summary>
+/// Manages the game's user inferface 
+/// </summary>
 public class UI : MonoBehaviour
 {
     public static UI instance;
 
     [Header("References")]
     [SerializeField] private GameObject inventory;
+    [SerializeField] private TextMeshProUGUI InventoryCoinText;
     [SerializeField] private GameObject shop;
+    [SerializeField] private TextMeshProUGUI shopCoinText;
     [SerializeField] private GameObject pressEToInteract;
     [SerializeField] private GameObject inventoryCellContainer;
     [SerializeField] private GameObject shopPlayerCellContainer;
@@ -24,6 +30,22 @@ public class UI : MonoBehaviour
         shop.SetActive(false);
 
         inventory.SetActive(!inventory.activeSelf);
+
+        if (inventory.activeSelf){
+            Actor playerActor = PlayerController.instance.GetComponent<Actor>();
+
+            //Update coin's text
+            InventoryCoinText.text = playerActor.coins.ToString();
+
+            AssignItemsToContainer(inventoryCellContainer,playerActor.inventory);
+        }
+        else{
+            Actor playerActor = PlayerController.instance.GetComponent<Actor>();
+
+            //Fill player inventory items
+            List<Item> playerItems = getInventoryItemList(inventoryCellContainer);
+            playerActor.inventory = playerItems;
+        }
     }
 
     public void TurnPressEToInteract(bool value){
@@ -36,17 +58,23 @@ public class UI : MonoBehaviour
         shop.SetActive(!shop.activeSelf);
 
         if (shop.activeSelf){
+            Actor playerActor = PlayerController.instance.GetComponent<Actor>();
+
             //Fill player items
-            List<Item> playerItems = getInventoryItemList(inventoryCellContainer);
-            AssignItemsToContainer(shopPlayerCellContainer,playerItems);
+            AssignItemsToContainer(shopPlayerCellContainer,playerActor.inventory);
 
             //Fill shopkeeper inventory
             AssignItemsToContainer(shopkeeperCellContainer,currentShop.items);
+
+            //Update coin's text
+            shopCoinText.text = playerActor.coins.ToString();
         }
         else{
+            Actor playerActor = PlayerController.instance.GetComponent<Actor>();
+            
             //Fill player inventory items
             List<Item> playerItems = getInventoryItemList(shopPlayerCellContainer);
-            AssignItemsToContainer(inventoryCellContainer,playerItems);
+            playerActor.inventory = playerItems;
 
             //Fill shopkeeper inventory items
             currentShop.items = getInventoryItemList(shopkeeperCellContainer);
@@ -79,5 +107,9 @@ public class UI : MonoBehaviour
 
     public void setCurrentShop(Shop shop){
         currentShop = shop;
+    }
+
+    public void updatePriceText(){
+        shopCoinText.text = PlayerController.instance.GetComponent<Actor>().coins.ToString();
     }
 }

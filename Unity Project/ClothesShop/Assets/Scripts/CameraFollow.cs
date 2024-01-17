@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Makes the camera follow the player
+/// </summary>
 public class CameraFollow : MonoBehaviour
 {
     [SerializeField]private float leftLimit;

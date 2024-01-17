@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Makes an NPC Actor move in a random pattern
+/// </summary>
 public class MoveRandomly : MonoBehaviour
 {
     [Header("Properties")]

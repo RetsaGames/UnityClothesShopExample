@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Contains all the drag-and-drop functionality.
+/// </summary>
 public class Cursor : MonoBehaviour
 {
     public static Cursor instance; 
@@ -19,6 +22,10 @@ public class Cursor : MonoBehaviour
 
     void Awake(){
         instance = this;
+    }
+
+    void Start(){
+        UnityEngine.Cursor.visible = false;
     }
 
     public void Update()
@@ -43,6 +50,7 @@ public class Cursor : MonoBehaviour
         if (Input.GetButtonUp("Grab") && item){
             if (mouseOverCell && mouseOverCell.CanReceiveItem(item)){
                 mouseOverCell.setItem(item);
+                mouseOverCell.onItemReceived();
             }
             else{
                 selectedCell.setItem(item);

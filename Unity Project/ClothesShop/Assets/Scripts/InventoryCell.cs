@@ -67,4 +67,8 @@ public class InventoryCell : MonoBehaviour,IPointerEnterHandler,IPointerExitHand
     public Item getItem(){
         return item;
     }
+
+    public virtual void onItemReceived(){
+        
+    }
 }

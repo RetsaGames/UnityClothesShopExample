@@ -8,12 +8,14 @@ using UnityEngine;
 public class Actor : MonoBehaviour
 {
     [Header("Properties")]
-    [SerializeField] AnimationType initialAnimation;
+    [SerializeField] private AnimationType initialAnimation;
+    [SerializeField] public int coins;
+    [SerializeField] public List<Item> inventory;
 
     [Header("References")]
-    [SerializeField] SpriteAnimations body;
-    [SerializeField] SpriteAnimations clothes;
-    [SerializeField] SpriteAnimations hat;
+    [SerializeField] private SpriteAnimations body;
+    [SerializeField] private SpriteAnimations clothes;
+    [SerializeField] private SpriteAnimations hat;
 
     void Start(){
         PlayAnimation(initialAnimation);

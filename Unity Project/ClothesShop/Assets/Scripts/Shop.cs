@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// A Stand with items to buy. You can also sell your items here
+/// </summary>
 public class Shop : MonoBehaviour
 {
     private bool playerClose = false;
